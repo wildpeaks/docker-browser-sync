@@ -31,8 +31,7 @@ jobs:
           core.setOutput('id', deployment.data.id);
 
     - name: Build
-      run: |
-        docker build --tag browser-sync .
+      run: docker build --tag browser-sync .
 
     - name: Create a Github Release
       id: release
