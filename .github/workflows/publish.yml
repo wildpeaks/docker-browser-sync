@@ -34,12 +34,6 @@ jobs:
       run: |
         docker build --tag browser-sync .
 
-    - name: Upload to Docker Hub
-      run: |
-        echo "${{ secrets.DOCKER_HUB_PASS }}" | docker login -u "${{ secrets.DOCKER_HUB_USER }}" --password-stdin
-        docker tag browser-sync wildpeaks/browser-sync:${{ github.event.inputs.version }}
-        docker push wildpeaks/browser-sync:${{ github.event.inputs.version }}
-
     - name: Create a Github Release
       id: release
       uses: actions/github-script@v2
@@ -56,6 +50,12 @@ jobs:
             draft: false,
             prerelease: false
           });
+
+    - name: Upload to Docker Hub
+      run: |
+        echo "${{ secrets.DOCKER_HUB_PASS }}" | docker login -u "${{ secrets.DOCKER_HUB_USER }}" --password-stdin
+        docker tag browser-sync wildpeaks/browser-sync:${{ github.event.inputs.version }}
+        docker push wildpeaks/browser-sync:${{ github.event.inputs.version }}
 
     - name: On success
       if: success()
