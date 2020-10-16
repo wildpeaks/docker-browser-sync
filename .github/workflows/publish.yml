@@ -40,6 +40,23 @@ jobs:
         docker tag browser-sync wildpeaks/browser-sync:${{ github.event.inputs.version }}
         docker push wildpeaks/browser-sync:${{ github.event.inputs.version }}
 
+    - name: Create a Github Release
+      id: release
+      uses: actions/github-script@v2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const release = await github.repos.createRelease({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            tag_name: 'v${{ github.event.inputs.version }}',
+            target_commitish: context.sha,
+            name: '${{ github.event.inputs.version }}',
+            body: '',
+            draft: false,
+            prerelease: false
+          });
+
     - name: On success
       if: success()
       uses: actions/github-script@v2
