@@ -1,6 +1,6 @@
 # Docker Image: "browser-sync"
 
-`![Publish](https://github.com/wildpeaks/docker-browser-sync/workflows/Publish/badge.svg)`
+![Publish](https://github.com/wildpeaks/docker-browser-sync/workflows/Publish/badge.svg)
 
 **Node LTS Alpine + Browsersync**.
 
