@@ -32,7 +32,7 @@ jobs:
 
     - name: Docker
       run: |
-        docker login --username "${{ secrets.DOCKER_HUB_USER }}" --password "${{ secrets.DOCKER_HUB_PASS }}"
+        echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USER }}" --password-stdin
         docker build . --file src/Dockerfile --tag ${{ secrets.DOCKER_HUB_REPO }}:${{ steps.deployment.outputs.tag }}
         docker push ${{ secrets.DOCKER_HUB_REPO }}:${{ steps.deployment.outputs.tag }}
 
