@@ -30,8 +30,13 @@ jobs:
         echo Deployment ${{ steps.deployment.outputs.id }}
         echo Tag ${{ steps.deployment.outputs.tag }}
 
+    - uses: actions/setup-node@v2.1.5
+      with:
+        node-version: 16.x
+    - run: node ./src/prebuild.js
+
     - name: Docker
-      working-directory: ./src
+      working-directory: ./docker
       run: |
         echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USER }}" --password-stdin
         docker build . --tag ${{ secrets.DOCKER_HUB_REPO }}:${{ steps.deployment.outputs.tag }}
