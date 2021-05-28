@@ -9,14 +9,10 @@
 !/.gitattributes
 !/.gitignore
 !/.github
-!/docker
-!/src
-!/test
-!/scripts
-!/package.json
 !/docker-compose.yml
+!/docker
+!/test
 
 # But make sure to ignore these regardless:
 *.lnk
 *.url
-/docker/Dockerfile

@@ -30,11 +30,6 @@ jobs:
         echo Deployment ${{ steps.deployment.outputs.id }}
         echo Tag ${{ steps.deployment.outputs.tag }}
 
-    - uses: actions/setup-node@v2.1.5
-      with:
-        node-version: 16.x
-    - run: node ./src/prebuild.js
-
     - name: Docker
       working-directory: ./docker
       run: |
