@@ -1,7 +1,25 @@
 version: "3.8"
 services:
+
   src:
     build: ./docker
     working_dir: /app
     volumes:
     - ./test/fixtures:/app:ro
+    ports:
+    - 3000:3000
+    - 3001:3001
+    networks:
+      default:
+        aliases:
+        - src.local
+
+  test:
+    depends_on:
+    - src
+    image: node:16-alpine
+    command: tail -f /dev/null
+    working_dir: /app
+    volumes:
+    - ./package.json:/app/package.json:ro
+    - ./test/mocha:/app/test/mocha:ro
